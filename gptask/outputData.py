@@ -1,4 +1,5 @@
-# This is a sample Python script.
+#!/usr/bin/env python
+
 import mysql.connector
 import json
 
