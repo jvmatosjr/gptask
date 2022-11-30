@@ -42,12 +42,14 @@ CREATE TABLE city(
 		REFERENCES county(id)
 );"""
 ##endregion
-peoplePath = '/home/jvmj/projects/gotphoto/data/people.csv'
-placesPath = '/home/jvmj/projects/gotphoto/data/places.csv'
+#peoplePath = '/home/jvmj/projects/gotphoto/data/people.csv'
+peoplePath = '/data/people.csv'
+#placesPath = '/home/jvmj/projects/gotphoto/data/places.csv'
+placesPath = '/data/places.csv'
 
 ##region db conn
 mydb = mysql.connector.connect(
-    host="localhost",
+    host="database",
     user="codetest",
     password="swordfish",
     database="codetest"
@@ -225,8 +227,9 @@ def initTables():
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    #initTables()
-    #loadPlaces(placesPath)
-    #loadPeople(peoplePath)
-    print("test docker")
+    print("starting loadData..")
+    initTables()
+    loadPlaces(placesPath)
+    loadPeople(peoplePath)
+    
 

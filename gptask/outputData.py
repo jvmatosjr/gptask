@@ -1,19 +1,23 @@
 # This is a sample Python script.
 import mysql.connector
-import pandas as pd
-import mysql.connector
 import json
+
+
+print("Starting outputdata..")
 
 ##region db conn
 mydb = mysql.connector.connect(
-    host="localhost",
+    host="database",
     user="codetest",
     password="swordfish",
     database="codetest"
 )
 #
 ##endregion
+print("connecting to the database..")
 cursor = mydb.cursor()
+
+print("processing data..")
 
 sql = """
 SELECT c.country_name, COUNT(p.id) AS total
@@ -27,15 +31,20 @@ cursor.execute(sql)
 result = cursor.fetchall()
 listJs = []
 for r in result:
-    #print(r)
     jObject = {"country": r[0],
                "total": r[1]}
     #print(jObject)
     listJs.append(jObject)
 
-resultObject = {"result:": listJs}
-#jList = json.dumps(listJs)
+resultObject = {"result": listJs}
 resultJson = json.dumps(resultObject)
-#print(jList)
+
+
 print(resultJson)
 
+json_file_path = "/data/outputResult.json"
+
+with open(json_file_path, 'w', encoding="utf-8") as writeFile:
+    json.dump(resultObject, writeFile)
+
+print("json result saved at /Data")
